@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO-DO LIST</title>
+    <style>
+        .parentable {
+            border: solid 1px black;
+            width: 600px;
+            margin: auto;
+        }
+
+        .button {
+            background-color: maroon;
+            color: aliceblue;
+        }
+    </style>
+</head>
+
+<body>
+    <table class="parentable">
+        <tr>
+            <td style="width: 100%; text-align:center;">
+                <h1>TO-DO LIST</h1>
+            </td>
+        </tr>
+        <tr>
+            <hr />
+            <td>
+                <table>
+                    <tr>
+                        <td style="width: 100px;">Date</td>
+                        <td style="width: 80%;">
+                            <input type="date" id="date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Time
+                        </td>
+                        <td>
+                            <input type="time" id="time">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80%;">
+                            work
+                        </td>
+                        <td>
+                            <textarea id="work"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button onclick="savework()" class="button">Save</button>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">
+                <hr>
+                <div id="divWorks">
+
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        let myworks = Array();
+        function savework() {
+            let date = document.getElementById("date").value;
+            let time = document.getElementById("time").value;
+            let work = document.getElementById("work").value;
+            if (date == "") {
+                alert("Select date");
+                document.getElementById("date").focus();
+                return false;
+            }
+
+            if (time == "") {
+                alert("Select Time");
+                document.getElementById("time").focus();
+                return false;
+            }
+
+            if (work == "") {
+                alert("Save Work");
+                document.getElementById("work").focus();
+                return false;
+            }
+            mywork = { workdate: date, worktime: time, actualwork: work };
+            myworks.push(mywork);
+            document.getElementById("date").value = "";
+            document.getElementById("time").value = "";
+            document.getElementById("work").value = "";
+            showworks();
+
+        }
+
+        function showworks() {
+            let workstr = "<table class = 'parentable'>"
+            workstr += "<tr>";
+            workstr += "<th>No</th>";
+            workstr += "<th>Date</th>";
+            workstr += "<th>Time</th>";
+            workstr += "<th>Work</th>";
+            workstr += "</tr>";
+
+            for (i = 0; i < myworks.length; i++) {
+                workstr += "<tr>";
+                workstr += "<td>" + (i + 1) + "</td>";
+                workstr += "<td>" + myworks[i].workdate + "</td>";
+                workstr += "<td>" + myworks[i].worktime + "</td>";
+                workstr += "<td>" + myworks[i].actualwork + "</td>";
+                workstr += "</tr>";
+            }
+
+
+            workstr += "</table>";
+            document.getElementById("divWorks").innerHTML = workstr;
+        }
+        showworks();
+
+
+    </script>
+
+
+</body>
+
+</html>
